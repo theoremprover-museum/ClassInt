@@ -1,0 +1,29 @@
+environ
+  1: (p[] or q[]) & ((not p[]) or q[]) & (p[] or not q[]);
+text
+
+  not (not p[] or not q[])
+proof
+    assume 2: not p[] or not q[];
+    3: not (not p[])
+    proof
+      assume 3: not p[];
+      4: (not p[] or q[]) & (p[] or not q[]) by 1;
+      5: p[] or not q[] by 4;
+      6: not (not q[])
+      proof
+        assume 6: not q[];
+        7: p[] or q[] by 1;
+        thus 9: false by 7,3,6;
+      qed;
+      thus 8: false by 5,3,6;
+    qed;
+    4: not (not q[])
+    proof
+      assume 4: not q[];
+      5: (not p[] or q[]) & (p[] or not q[]) by 1;
+      6: not p[] or q[] by 5;
+      thus 8: false by 6,3,4;
+    qed;
+    thus 6: false by 2,3,4;
+qed;

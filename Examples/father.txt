@@ -1,0 +1,28 @@
+environ
+
+  1: for x holds ex y st f[y,x];
+  2: for x,y holds g[x,y] iff ex z st f[x,z] & f[z,y];
+
+text
+
+  for a holds (ex b st g[b,a])
+proof
+    let tt;
+    3: ex b st g[b,tt]
+    proof
+      assume 3: not (ex b st g[b,tt]);
+      4: ex y st f[y,tt] by 1;
+      consider tttt such that 5: f[tttt,tt] by 4;
+      6: ex y st f[y,tttt] by 1;
+      consider ttt such that 7: f[ttt,tttt] by 6;
+      8: g[ttt,tt] iff (ex z st f[ttt,z] & f[z,tt]) by 2;
+      9: (ex z st f[ttt,z] & f[z,tt]) implies g[ttt,tt] by 8;
+      10: f[ttt,tttt] & f[tttt,tt] by 7,5;
+      11: ex z st f[ttt,z] & f[z,tt] by 10;
+      12: g[ttt,tt] by 9,11;
+      13: ex b st g[b,tt] by 12;
+      thus 14: false by 3,13;
+    qed;
+    thus ex b st g[b,tt] by 3;
+qed;
+

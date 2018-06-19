@@ -1,0 +1,35 @@
+environ
+
+text
+
+  ex x st (D[x] implies (for y holds D[y]))
+proof
+  consider t1;
+  
+  assume 1: not (ex x st (D[x] implies (for y holds D[y])));
+  
+  2: D[t1] implies (for y holds D[y])
+  proof
+    assume D[t1];
+    let y;
+    thus D[y]
+      proof 
+        assume 3: not D[y];
+            
+        4: D[y] implies (for z holds D[z])
+          proof
+            assume 5: D[y];
+            let z;
+            6: false by 3,5;
+            thus thesis by 6;
+          qed;
+          
+        7: ex x st (D[x] implies (for y holds D[y])) by 4;
+
+        thus false by 1,7;
+      qed;
+  qed;
+  
+  8: ex x st (D[x] implies (for y holds D[y])) by 2;
+  thus false by 1,8;
+qed;
